@@ -26,3 +26,4 @@ class CommandFactory:
             return CommandCargaInstrucciones(self.ser, self.log_path)
         else:
             return None
+    
