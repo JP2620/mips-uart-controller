@@ -17,7 +17,7 @@ class CommandSendMem(Command):
         self.ser.write(CODE_SEND_MEM.to_bytes(1, 'big'))
     
     def read_mem(self) -> List[bytes]:
-        mem_size = 4 * 4
+        mem_size = 256 * 4
         return self.ser.read(mem_size)
     
     def print_mem(self, mem_bytes: List[bytes]):
