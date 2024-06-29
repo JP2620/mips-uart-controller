@@ -1,5 +1,6 @@
 from .command import Command
 from ..constants.constants import CODE_SEND_REGS
+from ..utils.strings import bytes_to_hex_str
 from typing import List
 """
 There are 32 registers of 32 bits each.
@@ -21,18 +22,18 @@ class CommandSendRegs(Command):
     def execute(self):
         print(self.__class__.__name__ + " executing")
         self.send_code()
-        regs = self.read_regs()
-        self.print_regs(regs)
+        reg_bytes = self.read_regs()
+        self.print_regs(reg_bytes)
 
     def send_code(self):
         self.ser.write(CODE_SEND_REGS.to_bytes(1, 'big'))
     
     def read_regs(self) -> List[bytes]:
-        regs = self.ser.read(32 * 4)
-        print("regs: ", regs)
+        regs = self.ser.read(32)
         return regs
     
-    def print_regs(self, regs: List[bytes]):
-        for i, reg in enumerate(regs):
-            print(f"register {i}: {hex(reg)}")
+    def print_regs(self, reg_bytes: List[bytes]):
+        for i in range(0, len(reg_bytes), 4):
+            reg_hex_str = bytes_to_hex_str(reg_bytes[i:i+4])
+            print(f"register {i}: 0x{reg_hex_str}")
         pass
