@@ -2,7 +2,7 @@ from .command import Command
 from typing import List
 
 class CommandCargaInstrucciones(Command):
-    def __init__(self, ser, log_path, instrucciones_path="resources/instrucciones.mem"):
+    def __init__(self, ser, log_path, instrucciones_path="python_controller/resources/instrucciones.mem"):
         self.instrucciones_path = instrucciones_path
         super().__init__(ser, log_path)
 

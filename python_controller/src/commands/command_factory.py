@@ -1,4 +1,4 @@
-from constants.constants import CODE_SEND_MEM, CODE_SEND_REGS, CODE_SEND_PC, CODE_MODO_CONTINUO, CODE_MODO_PASO_A_PASO, CODE_CARGA_INSTR
+from ..constants.constants import CODE_SEND_MEM, CODE_SEND_REGS, CODE_SEND_PC, CODE_MODO_CONTINUO, CODE_MODO_PASO_A_PASO, CODE_CARGA_INSTR
 from .command_modo_continuo import CommandModoContinuo
 from .command_modo_paso_a_paso import CommandModoPasoAPaso
 from .command_send_mem import CommandSendMem
