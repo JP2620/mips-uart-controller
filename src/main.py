@@ -2,7 +2,8 @@ import serial
 import time
 from constants.constants import CODE_CARGA_INSTR, CODE_MODO_CONTINUO, CODE_MODO_PASO_A_PASO, CODE_SEND_MEM, CODE_SEND_REGS, CODE_SEND_PC
 from commands import command_send_mem, command_send_pc, command_send_regs
-from commands.command_factory import CommandFactory as Comm
+from commands.command_factory import CommandFactory
+from commands.command import Command
 
 # Setup your serial connection (change 'COM3' to whatever port your device is connected to)
 ser = serial.Serial('/dev/pts/7', 9600, timeout=1)  # Open serial port at 9600 baud rate
@@ -18,7 +19,7 @@ opt_command_map = {
 }
 
 
-command_factory = command_factory.CommandFactory(ser, 'log.txt')
+command_factory = CommandFactory(ser, 'log.txt')
 
 menu_str = """
 Ingrese uno de los siguientes comandos:
@@ -60,10 +61,7 @@ try:
         command = command_factory.create_command(command_code)
 
         try:
-            print(f"Sending command code: {command_code}")
-            # Send byte
-            ser.write(command_code.to_bytes(1, byteorder='big'))
-            print(f"Sent: {command_code}")
+            command.execute()
         except ValueError:
             # print command code in 0x format
             print(f"Something went wrong. Please try again. command_code: {command_code}")
