@@ -5,7 +5,7 @@ from .src.commands.command_factory import CommandFactory
 from .src.commands.command import Command
 
 # Setup your serial connection (change 'COM3' to whatever port your device is connected to)
-ser = serial.Serial('/dev/pts/7', 9600, timeout=1)  # Open serial port at 9600 baud rate
+ser = serial.Serial('/dev/pts/7', 9600)  # Open serial port at 9600 baud rate
 
 opt_command_map = {
     1: CODE_CARGA_INSTR,
