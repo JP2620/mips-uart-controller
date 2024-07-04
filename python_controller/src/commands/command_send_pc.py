@@ -2,6 +2,7 @@ from .command import Command
 from ..constants.constants import CODE_SEND_PC
 from typing import List
 from ..utils.strings import bytes_to_hex_str
+from time import sleep
 
 class CommandSendPc(Command):
     def __init__(self, ser, log_path):
@@ -15,6 +16,8 @@ class CommandSendPc(Command):
 
     def send_code(self):
         self.ser.write(CODE_SEND_PC.to_bytes(1, 'big'))
+        sleep(0.1)
+        self.ser.reset_input_buffer()
     
     def read_pc(self) -> List[bytes]:
         pc = self.ser.read(4)

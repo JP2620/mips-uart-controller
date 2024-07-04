@@ -1,7 +1,7 @@
 from .command import Command
 from typing import List
 from ..constants.constants import CODE_CARGA_INSTR
-import time
+from time import sleep
 
 class CommandCargaInstrucciones(Command):
     def __init__(self, ser, log_path, instrucciones_path="python_controller/resources/instrucciones.mem"):
@@ -10,7 +10,10 @@ class CommandCargaInstrucciones(Command):
 
     def execute(self):
         self.send_code()
-        time.sleep(10)
+        
+        # sleep to appreciate how the leds change
+        sleep(3)
+
         print(self.__class__.__name__ + " executed")
         instrucciones = self.read_instrucciones()
         self.send_instrucciones(instrucciones)
@@ -27,6 +30,10 @@ class CommandCargaInstrucciones(Command):
             self.ser.write(bytes_to_send)
             print("sending bytes: ", bytes_to_send)
         print("instrucciones sent")
+
+        sleep(0.1)
+        self.ser.reset_input_buffer()
+
         pass
 
     def send_code(self):

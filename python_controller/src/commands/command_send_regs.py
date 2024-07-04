@@ -2,6 +2,7 @@ from .command import Command
 from ..constants.constants import CODE_SEND_REGS
 from ..utils.strings import bytes_to_hex_str
 from typing import List
+from time import sleep
 """
 There are 32 registers of 32 bits each.
 after sending the command we need to read 32x4 bytes
@@ -22,6 +23,8 @@ class CommandSendRegs(Command):
     def execute(self):
         print(self.__class__.__name__ + " executing")
         self.send_code()
+        sleep(0.1)
+        self.ser.reset_input_buffer()
         reg_bytes = self.read_regs()
         self.print_regs(reg_bytes)
 

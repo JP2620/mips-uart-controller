@@ -2,6 +2,7 @@ from .command import Command
 from ..constants.constants import CODE_SEND_MEM
 from ..utils.strings import bytes_to_hex_str
 from typing import List
+from time import sleep
 
 class CommandSendMem(Command):
     def __init__(self, ser, log_path):
@@ -10,6 +11,8 @@ class CommandSendMem(Command):
     def execute(self):
         print(self.__class__.__name__ + " executed")
         self.send_code()
+        sleep(0.1)
+        self.ser.reset_input_buffer()
         mem_bytes = self.read_mem()
         self.print_mem(mem_bytes)
 

@@ -1,5 +1,6 @@
 from .command import Command
 from ..constants.constants import CODE_MODO_PASO_A_PASO
+from time import sleep
 
 
 class CommandModoPasoAPaso(Command):
@@ -9,6 +10,8 @@ class CommandModoPasoAPaso(Command):
     def execute(self):
         print(self.__class__.__name__ + " executing")
         self.send_code()
+        sleep(0.1)
+        self.ser.reset_input_buffer()
         pass
 
     def send_code(self):
