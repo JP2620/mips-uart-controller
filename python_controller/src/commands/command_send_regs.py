@@ -24,7 +24,7 @@ class CommandSendRegs(Command):
         print(self.__class__.__name__ + " executing")
         self.send_code()
         sleep(0.1)
-        self.ser.reset_input_buffer()
+        #self.ser.reset_input_buffer()
         reg_bytes = self.read_regs()
         self.print_regs(reg_bytes)
 
@@ -33,6 +33,9 @@ class CommandSendRegs(Command):
     
     def read_regs(self) -> List[bytes]:
         regs = self.ser.read(32 * 4)
+        sleep(0.1)
+        # reset the buffer
+        self.ser.reset_input_buffer()
         return regs
     
     def print_regs(self, reg_bytes: List[bytes]):
